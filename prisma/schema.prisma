@@ -15,7 +15,8 @@ model User {
   name          String
   email         String
   password      String
-  age           Int
+  cpf           String
+  phone         String
   latitude      Float
   longitude     Float
   distanceLimit Int
@@ -30,13 +31,15 @@ enum Gender {
 }
 
 model Pet {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   gender      Gender
   breed       String
   age         Int
-  vaccination Boolean @default(false)
-  user        User    @relation(fields: [userId], references: [id])
+  about       String
+  pictures    String[]
+  vaccination Boolean  @default(false)
+  user        User     @relation(fields: [userId], references: [id])
   userId      String
 
   @@map("pet")
