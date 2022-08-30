@@ -1,10 +1,16 @@
+import "express-async-errors";
+
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
 
+import { handleErrors } from "./middleware/handleErrors";
+import { router } from "./router";
 import { logger } from "./utils/logger";
+import { swaggerSpec } from "./utils/swagger";
 
 dotenv.config();
 
@@ -24,5 +30,10 @@ app.use(
 );
 
 app.get("/", (req, res) => res.json({ message: "Welcome to Woofs API" }));
+
+app.use("/", router);
+app.use(handleErrors);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => logger.info(`✅ Server running on http://localhost:${PORT}`));

@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
 
-import { prismaClient as prisma } from "../src/prisma";
+import { prisma } from "../src/prisma";
 
 async function main() {
   const alice = await prisma.user.upsert({
