@@ -29,11 +29,14 @@ app.use(
   }),
 );
 
-app.get("/", (req, res) => res.json({ message: "Welcome to Woofs API" }));
+app.get("/", (request, response) => response.json({ message: "Welcome to Woofs API" }));
 
 app.use("/", router);
 app.use(handleErrors);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.listen(PORT, () => logger.info(`✅ Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  logger.info(`✅ Server running on http://localhost:${PORT}`);
+  logger.info(`📃 Docs available on http://localhost:${PORT}/docs`);
+});

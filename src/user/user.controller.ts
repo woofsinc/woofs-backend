@@ -5,17 +5,21 @@ import { userService } from "./user.service";
 
 export const userController = {
   async listAll(request: Request, response: Response): Promise<Response> {
-    const { _page, _items } = request.query;
+    const { _page, _limit } = request.query;
 
     const page = isNaN(Number(_page)) ? 1 : Number(_page);
-    const take = isNaN(Number(_items)) ? 10 : Number(_items);
-    const skip = (page - 1) * take;
+    const limit = isNaN(Number(_limit)) ? 10 : Number(_limit);
+    const skip = (page - 1) * limit;
 
-    const { data, count } = await userService.getUsers({ take, skip });
+    const { data, totalItems } = await userService.getUsers({
+      skip,
+      take: limit,
+    });
 
-    const last = count <= page * take;
+    const totalPages = Math.ceil(totalItems / limit);
+    const hasNextPage = page < totalPages;
 
-    return response.json({ page: Number(_page) || 1, data, last });
+    return response.json({ data, totalItems, totalPages, hasNextPage });
   },
 
   async getOne(request: Request, response: Response) {
