@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 
 // app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(express.urlencoded({ extended: true }));
-app.get("/", (req, res) => res.json({ message: "Woofs" }));
+app.get("/", (req, res) => res.json({ message: "Welcome to Woofs API" }));
 
 const PORT = process.env.PORT || 3333;
 
