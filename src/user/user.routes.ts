@@ -12,8 +12,8 @@ export const userRouter = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
- *           example: 0
+ *           type: uuid
+ *           format: uuid
  *         name:
  *           type: string
  *           example: Leanne Graham
@@ -25,7 +25,7 @@ export const userRouter = Router();
  *           example: 123456
  *         cpf:
  *           type: string
- *           example: 12345678900
+ *           example: 08684930070
  *         phone:
  *           type: string
  *           example: 79999999999
@@ -44,18 +44,21 @@ export const userRouter = Router();
  * @openapi
  * /user:
  *  get:
- *    description: Get a list of users.
+ *    summary: Get a list of users.
+ *    description: Get a paginated list of users.
  *    tags:
  *      - User
  *    responses:
  *      200:
  *        description: Success
  *        content:
- *        application/json:
- *          schema:
- *            type: array
- *            items:
- *              $ref: '#/components/schemas/User'
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/User'
+ *      500:
+ *        $ref: '#/components/responses/500'
  */
 userRouter.get("/", userController.listAll);
 
@@ -63,7 +66,8 @@ userRouter.get("/", userController.listAll);
  * @openapi
  * /user/{id}:
  *  get:
- *    description: Get an user.
+ *    summary: Get an user.
+ *    description: Get an user by it's id.
  *    tags:
  *      - User
  *    parameters:
@@ -77,14 +81,12 @@ userRouter.get("/", userController.listAll);
  *      200:
  *        description: Success
  *        content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/User'
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
  *      404:
- *        description: User not found
- *        content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Error'
+ *        $ref: '#/components/responses/404'
+ *      500:
+ *        $ref: '#/components/responses/500'
  */
 userRouter.get("/:id", userController.getOne);

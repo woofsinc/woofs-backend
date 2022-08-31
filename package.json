@@ -4,10 +4,11 @@
   "description": "Um tinder para Doguinhos! Desenvolvido para a matéria Project Labs II",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx ts-node src/utils/swagger.ts && tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --inspect --transpile-only --respawn --ignore-watch node_modules --exit-child -- ./src/server.ts",
-    "lint": "eslint src --max-warnings=0"
+    "lint": "eslint src --max-warnings=0",
+    "swagger": "npx ts-node src/utils/swagger.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

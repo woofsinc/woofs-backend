@@ -1,3 +1,5 @@
+import { writeFileSync } from "fs";
+
 import swaggerJSDoc from "swagger-jsdoc";
 
 import { version } from "../../package.json";
@@ -26,3 +28,4 @@ const options = {
 };
 
 export const swaggerSpec = swaggerJSDoc(options);
+writeFileSync("swagger.json", JSON.stringify(swaggerSpec, null, 2));
