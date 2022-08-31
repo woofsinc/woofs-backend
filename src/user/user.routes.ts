@@ -35,12 +35,6 @@ export const userRouter = Router();
  *         distanceLimit:
  *           type: integer
  *           example: 50
- *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
  *     User:
  *       type: object
  *       allOf:
@@ -50,6 +44,12 @@ export const userRouter = Router();
  *         id:
  *           type: string
  *           format: uuid
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
  */
 
 /**
@@ -75,7 +75,6 @@ export const userRouter = Router();
  *                  type: array
  *                  items:
  *                    $ref: '#/components/schemas/User'
-
  *      500:
  *        $ref: '#/components/responses/500'
  */
