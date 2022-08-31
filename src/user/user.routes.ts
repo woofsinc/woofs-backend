@@ -12,14 +12,14 @@ export const userRouter = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: uuid
+ *           type: string
  *           format: uuid
  *         name:
  *           type: string
  *           example: Leanne Graham
  *         email:
  *           type: string
- *           example: leanne@gmail.com
+ *           format: email
  *         password:
  *           type: string
  *           example: 123456

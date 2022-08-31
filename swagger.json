@@ -147,7 +147,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "uuid",
+            "type": "string",
             "format": "uuid"
           },
           "name": {
@@ -156,7 +156,7 @@
           },
           "email": {
             "type": "string",
-            "example": "leanne@gmail.com"
+            "format": "email"
           },
           "password": {
             "type": "string",

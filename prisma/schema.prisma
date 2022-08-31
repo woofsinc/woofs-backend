@@ -11,9 +11,9 @@ datasource db {
 }
 
 model User {
-  id            String @id @default(uuid())
+  id            String   @id @default(uuid())
   name          String
-  email         String @unique
+  email         String   @unique
   password      String
   cpf           String
   phone         String
@@ -21,6 +21,8 @@ model User {
   longitude     Float
   distanceLimit Int
   pets          Pet[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@map("user")
 }
@@ -41,6 +43,8 @@ model Pet {
   vaccination Boolean  @default(false)
   tutor       User     @relation(fields: [tutorId], references: [id])
   tutorId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([tutorId, name], map: "name_per_tutor_unique_constraint")
   @@map("pet")
