@@ -8,12 +8,9 @@ export const userRouter = Router();
  * @openapi
  * components:
  *   schemas:
- *     User:
+ *     UserInput:
  *       type: object
  *       properties:
- *         id:
- *           type: string
- *           format: uuid
  *         name:
  *           type: string
  *           example: Leanne Graham
@@ -38,6 +35,21 @@ export const userRouter = Router();
  *         distanceLimit:
  *           type: integer
  *           example: 50
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *     User:
+ *       type: object
+ *       allOf:
+ *         - $ref: '#/components/schemas/UserInput'
+ *         - type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
  */
 
 /**
@@ -54,9 +66,16 @@ export const userRouter = Router();
  *        content:
  *          application/json:
  *            schema:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/User'
+ *              type: object
+ *              allOf:
+ *                - $ref: '#/components/schemas/Pagination'
+ *                - type: object
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/User'
+
  *      500:
  *        $ref: '#/components/responses/500'
  */

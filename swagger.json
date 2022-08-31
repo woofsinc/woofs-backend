@@ -23,9 +23,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
                   }
                 }
               }
@@ -130,6 +143,30 @@
       }
     },
     "schemas": {
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "itemsPerPage": {
+            "type": "number",
+            "example": 10
+          },
+          "totalItems": {
+            "type": "number",
+            "example": 100
+          },
+          "totalPages": {
+            "type": "number",
+            "example": 10
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      },
       "Error": {
         "type": "object",
         "properties": {
@@ -143,13 +180,9 @@
           }
         }
       },
-      "User": {
+      "UserInput": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "name": {
             "type": "string",
             "example": "Leanne Graham"
@@ -181,6 +214,31 @@
           "distanceLimit": {
             "type": "integer",
             "example": 50
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/UserInput"
+          },
+          {
+            "type": "object"
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       }

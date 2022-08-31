@@ -41,6 +41,23 @@ export const router = Router();
  *                  type: string
  *                  example: Internal Server Error
  *   schemas:
+ *     Pagination:
+ *       type: object
+ *       properties:
+ *         page:
+ *           type: number
+ *           example: 1
+ *         itemsPerPage:
+ *           type: number
+ *           example: 10
+ *         totalItems:
+ *           type: number
+ *           example: 100
+ *         totalPages:
+ *           type: number
+ *           example: 10
+ *         hasNextPage:
+ *           type: boolean
  *     Error:
  *       type: object
  *       properties:
