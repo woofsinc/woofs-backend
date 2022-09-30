@@ -91,6 +91,22 @@
         "tags": [
           "User"
         ],
+        "parameters": [
+          {
+            "name": "_page",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",

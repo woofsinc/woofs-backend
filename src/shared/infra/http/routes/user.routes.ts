@@ -122,6 +122,16 @@ userRouter.get("/:id", listUserController.handle);
  *    description: Get a paginated list of users.
  *    tags:
  *      - User
+ *    parameters:
+ *      - name: _page
+ *        in: query
+ *        required: true
+ *      - name: _limit
+ *        in: query
+ *        required: true
+ *        description: The id of the user to retrieve
+ *        schema:
+ *          type: number
  *    responses:
  *      200:
  *        description: Success
