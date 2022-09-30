@@ -1,8 +1,14 @@
 import { Router } from "express";
 
-import { userController } from "./user.controller";
+import { CreateUserController } from "@modules/user/useCases/createUser/user.controller";
+import { ListUserController } from "@modules/user/useCases/listUser/listUser.controller";
+import { ListAllUserController } from "@modules/user/useCases/listAllUsers/listAll.controller";
 
 export const userRouter = Router();
+
+const createUserController = new CreateUserController();
+const listUserController = new ListUserController();
+const listAllUsersController = new ListAllUserController();
 
 /**
  * @openapi
@@ -54,31 +60,30 @@ export const userRouter = Router();
 
 /**
  * @openapi
- * /user:
- *  get:
- *    summary: Get a list of users.
- *    description: Get a paginated list of users.
+ * /user/create:
+ *  post:
+ *    summary: Register a new User.
+ *    description: Register a new User.
  *    tags:
  *      - User
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/UserInput'
  *    responses:
  *      200:
  *        description: Success
  *        content:
  *          application/json:
  *            schema:
- *              type: object
- *              allOf:
- *                - $ref: '#/components/schemas/Pagination'
- *                - type: object
- *              properties:
- *                data:
- *                  type: array
- *                  items:
- *                    $ref: '#/components/schemas/User'
+ *              $ref: '#/components/schemas/User'
+ *      404:
+ *        $ref: '#/components/responses/404'
  *      500:
  *        $ref: '#/components/responses/500'
  */
-userRouter.get("/", userController.listAll);
+userRouter.post("/create", createUserController.handle);
 
 /**
  * @openapi
@@ -107,4 +112,32 @@ userRouter.get("/", userController.listAll);
  *      500:
  *        $ref: '#/components/responses/500'
  */
-userRouter.get("/:id", userController.getOne);
+userRouter.get("/:id", listUserController.handle);
+
+/**
+ * @openapi
+ * /user:
+ *  get:
+ *    summary: Get a list of users.
+ *    description: Get a paginated list of users.
+ *    tags:
+ *      - User
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              allOf:
+ *                - $ref: '#/components/schemas/Pagination'
+ *                - type: object
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/User'
+ *      500:
+ *        $ref: '#/components/responses/500'
+ */
+userRouter.get("/", listAllUsersController.handle);
