@@ -19,9 +19,8 @@ export class UsersRepository implements IUsersRepository {
     await this._prisma.user.delete({ where: { id } });
   }
 
-  async findAll(skip?: any, take?: any): Promise<{ data: User[]; totalItems: number }> {
+  async findAll(skip?: number, take?: number): Promise<{ data: User[]; totalItems: number }> {
     const totalItems = await this._prisma.user.count();
-    console.log(skip, take);
     const users = await this._prisma.user.findMany({ skip: skip, take: take });
     return { data: users, totalItems };
   }
