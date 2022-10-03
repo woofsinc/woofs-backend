@@ -82,6 +82,35 @@
             "$ref": "#/components/responses/500"
           }
         }
+      },
+      "delete": {
+        "summary": "Delete an user.",
+        "description": "Delete an user by it's id.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
       }
     },
     "/user": {
@@ -103,7 +132,7 @@
             "required": true,
             "description": "The id of the user to retrieve",
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],

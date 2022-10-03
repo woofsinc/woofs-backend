@@ -3,12 +3,14 @@ import { Router } from "express";
 import { CreateUserController } from "@modules/user/useCases/createUser/user.controller";
 import { ListUserController } from "@modules/user/useCases/listUser/listUser.controller";
 import { ListAllUserController } from "@modules/user/useCases/listAllUsers/listAll.controller";
+import { DeleteUserController } from "@modules/user/useCases/deleteUser/deleteUser.controller";
 
 export const userRouter = Router();
 
 const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
 const listAllUsersController = new ListAllUserController();
+const deleteUserController = new DeleteUserController();
 
 /**
  * @openapi
@@ -151,3 +153,28 @@ userRouter.get("/:id", listUserController.handle);
  *        $ref: '#/components/responses/500'
  */
 userRouter.get("/", listAllUsersController.handle);
+
+/**
+ * @openapi
+ * /user/{id}:
+ *  delete:
+ *    summary: Delete an user.
+ *    description: Delete an user by it's id.
+ *    tags:
+ *      - User
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: The id of the user to retrieve
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Success
+ *      404:
+ *        $ref: '#/components/responses/404'
+ *      500:
+ *        $ref: '#/components/responses/500'
+ */
+userRouter.delete("/:id", deleteUserController.handle);
