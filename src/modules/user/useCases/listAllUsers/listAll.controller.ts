@@ -19,7 +19,6 @@ export class ListAllUserController {
 
     const totalPages = Math.ceil(totalItems / limit);
     const hasNextPage = page < totalPages;
-
     return response.json({ data, page, itemsPerPage: limit, totalItems, totalPages, hasNextPage });
   }
 }

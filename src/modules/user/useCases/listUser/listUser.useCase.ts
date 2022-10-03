@@ -10,9 +10,7 @@ export class ListUserByIdUseCase {
   async execute(user_id: string): Promise<User> {
     const user = await this._repository.findById(user_id);
 
-    if (!user) {
-      throw new HttpError("User doest  exists!", 400);
-    }
+    if (!user) throw new HttpError("User doest  exists!", 400);
 
     return user;
   }

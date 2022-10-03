@@ -3,6 +3,7 @@ import { Router } from "express";
 import { CreateUserController } from "@modules/user/useCases/createUser/user.controller";
 import { ListUserController } from "@modules/user/useCases/listUser/listUser.controller";
 import { ListAllUserController } from "@modules/user/useCases/listAllUsers/listAll.controller";
+import { UpdateUserController } from "@modules/user/useCases/updateUser/updateUser.controller";
 import { DeleteUserController } from "@modules/user/useCases/deleteUser/deleteUser.controller";
 
 export const userRouter = Router();
@@ -10,6 +11,7 @@ export const userRouter = Router();
 const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
 const listAllUsersController = new ListAllUserController();
+const updateUserController = new UpdateUserController();
 const deleteUserController = new DeleteUserController();
 
 /**
@@ -178,3 +180,41 @@ userRouter.get("/", listAllUsersController.handle);
  *        $ref: '#/components/responses/500'
  */
 userRouter.delete("/:id", deleteUserController.handle);
+
+/**
+ * @openapi
+ * /user/{id}:
+ *  put:
+ *    summary: Update an user.
+ *    description: Update an user by it's id.
+ *    tags:
+ *      - User
+ *    parameters:
+ *      - name: id
+ *        in: path
+ *        required: true
+ *        description: The id of the user to retrieve
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/UserInput'
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/User'
+ *      404:
+ *        $ref: '#/components/responses/404'
+ *      500:
+ *        $ref: '#/components/responses/500'
+ */
+userRouter.put("/:id", updateUserController.handle);
