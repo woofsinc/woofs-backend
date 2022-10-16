@@ -6,6 +6,7 @@ import { ListAllUserController } from "@modules/user/useCases/listAllUsers/listA
 import { UpdateUserController } from "@modules/user/useCases/updateUser/updateUser.controller";
 import { DeleteUserController } from "@modules/user/useCases/deleteUser/deleteUser.controller";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { ensureAdmin } from "../middlewares/ensureAdmin";
 
 export const userRouter = Router();
 
@@ -46,6 +47,9 @@ const deleteUserController = new DeleteUserController();
  *         distanceLimit:
  *           type: integer
  *           example: 50
+ *         isAdmin:
+ *           type: bool
+ *           example: false
  *     User:
  *       type: object
  *       allOf:
@@ -90,6 +94,7 @@ const deleteUserController = new DeleteUserController();
  */
 userRouter.post("/create", createUserController.handle);
 userRouter.use(ensureAuthenticated);
+userRouter.use(ensureAdmin);
 /**
  * @openapi
  * /user/{id}:
