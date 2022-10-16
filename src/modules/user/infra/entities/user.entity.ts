@@ -10,6 +10,7 @@ export class UserEntity implements Prisma.UserCreateInput {
   latitude: number;
   longitude: number;
   distanceLimit: number;
+  isAdmin?: boolean;
   pets?: Prisma.PetCreateNestedManyWithoutTutorInput;
   createdAt?: string | Date;
   updatedAt?: string | Date;

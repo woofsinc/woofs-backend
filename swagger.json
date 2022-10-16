@@ -10,12 +10,12 @@
     }
   },
   "paths": {
-    "/sessions": {
+    "/sessions/login": {
       "post": {
         "summary": "Start a new session.",
         "description": "Start a new session.",
         "tags": [
-          "User"
+          "Session"
         ],
         "requestBody": {
           "content": {
@@ -360,6 +360,10 @@
           "distanceLimit": {
             "type": "integer",
             "example": 50
+          },
+          "isAdmin": {
+            "type": "bool",
+            "example": false
           }
         }
       },

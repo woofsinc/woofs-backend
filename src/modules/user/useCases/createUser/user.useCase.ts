@@ -25,7 +25,7 @@ export class CreateUserUseCase {
     const cpfAlreadExists = await this._repository.findByEmail(email);
 
     if (userAlreadExists) {
-      throw new HttpError("User already exists!", 400);
+      throw new HttpError("Email already exists!", 400);
     }
 
     if (cpfAlreadExists) {

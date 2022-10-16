@@ -31,12 +31,12 @@ const authenticateUserController = new AuthenticateUserController();
 
 /**
  * @openapi
- * /sessions:
+ * /sessions/login:
  *  post:
  *    summary: Start a new session.
  *    description: Start a new session.
  *    tags:
- *      - User
+ *      - Session
  *    requestBody:
  *      content:
  *        application/json:
@@ -54,4 +54,4 @@ const authenticateUserController = new AuthenticateUserController();
  *      500:
  *        $ref: '#/components/responses/500'
  */
-authenticateRoutes.post("/sessions", authenticateUserController.handle);
+authenticateRoutes.post("/login", authenticateUserController.handle);

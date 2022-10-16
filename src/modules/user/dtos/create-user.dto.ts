@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { IsString, IsEmail, IsInt, IsOptional, IsDate } from "class-validator";
+import { IsString, IsEmail, IsInt, IsOptional, IsDate, IsBoolean } from "class-validator";
 import { UserEntity } from "@modules/user/infra/entities/user.entity";
 
 export class CreateUserDto extends UserEntity {
@@ -24,6 +24,10 @@ export class CreateUserDto extends UserEntity {
 
   @IsInt()
   distanceLimit: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isAdmin?: boolean;
 
   @IsOptional()
   pets?: Prisma.PetCreateNestedManyWithoutTutorInput;

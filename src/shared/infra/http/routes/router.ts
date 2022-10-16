@@ -71,4 +71,4 @@ export const router = Router();
  */
 
 router.use("/user", userRouter);
-router.use(authenticateRoutes);
+router.use("/sessions", authenticateRoutes);
