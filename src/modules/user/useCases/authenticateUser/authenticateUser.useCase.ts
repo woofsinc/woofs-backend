@@ -27,7 +27,7 @@ export class AuthenticateUserUserUseCase {
 
     const passwordMatch = await compare(password, user.password);
 
-    if (!passwordMatch) throw new HttpError("Email or password incorrect!", 400);
+    if (!passwordMatch) throw new HttpError("Password incorrect!", 400);
 
     const token = sign({}, "4b95e4787fcead483cfcd9e423a6e228", {
       subject: user.id,
