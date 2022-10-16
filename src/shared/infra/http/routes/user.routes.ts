@@ -5,6 +5,7 @@ import { ListUserController } from "@modules/user/useCases/listUser/listUser.con
 import { ListAllUserController } from "@modules/user/useCases/listAllUsers/listAll.controller";
 import { UpdateUserController } from "@modules/user/useCases/updateUser/updateUser.controller";
 import { DeleteUserController } from "@modules/user/useCases/deleteUser/deleteUser.controller";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 export const userRouter = Router();
 
@@ -88,7 +89,7 @@ const deleteUserController = new DeleteUserController();
  *        $ref: '#/components/responses/500'
  */
 userRouter.post("/create", createUserController.handle);
-
+userRouter.use(ensureAuthenticated);
 /**
  * @openapi
  * /user/{id}:
