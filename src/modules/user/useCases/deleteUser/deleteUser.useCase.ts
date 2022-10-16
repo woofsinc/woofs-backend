@@ -10,7 +10,7 @@ export class DeleteUserUseCase {
     const user = await this._repository.findById(id);
 
     if (!user) {
-      throw new HttpError("User doest  exists!", 400);
+      throw new HttpError("User doesn't  exists!", 400);
     }
 
     await this._repository.delete(id);
