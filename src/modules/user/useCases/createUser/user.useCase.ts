@@ -22,8 +22,14 @@ export class CreateUserUseCase {
   }: CreateUserDto): Promise<User> {
     const userAlreadExists = await this._repository.findByEmail(email);
 
+    const cpfAlreadExists = await this._repository.findByEmail(email);
+
     if (userAlreadExists) {
       throw new HttpError("User already exists!", 400);
+    }
+
+    if (cpfAlreadExists) {
+      throw new HttpError("CPF already exists!", 400);
     }
 
     const passwordHash = await hash(password, 10);

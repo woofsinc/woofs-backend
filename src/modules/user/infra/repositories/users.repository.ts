@@ -36,6 +36,11 @@ export class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  async findByCpf(cpf: string): Promise<User> {
+    const user = await this._prisma.user.findFirst({ where: { cpf: cpf } });
+    return user;
+  }
+
   async update(id: string, data: UpdateUserDto): Promise<User> {
     const user = await this._prisma.user.update({ where: { id }, data });
     return user;

@@ -10,6 +10,42 @@
     }
   },
   "paths": {
+    "/sessions": {
+      "post": {
+        "summary": "Start a new session.",
+        "description": "Start a new session.",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionsInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/user/create": {
       "post": {
         "summary": "Register a new User.",
@@ -223,59 +259,36 @@
     }
   },
   "components": {
-    "responses": {
-      "400": {
-        "description": "Bad Request",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Error"
-            }
-          }
-        }
-      },
-      "404": {
-        "description": "Not Found Error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Not Found Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "500": {
-        "description": "Internal Server Error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 500
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Internal Server Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "schemas": {
+      "SessionsInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SessionsInput"
+          },
+          {
+            "type": "object"
+          }
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
       "Pagination": {
         "type": "object",
         "properties": {
@@ -372,6 +385,58 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not Found Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                }
+              }
+            }
           }
         }
       }
