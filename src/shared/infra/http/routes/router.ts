@@ -1,6 +1,7 @@
+import { authenticateRoutes } from "./authenticate.routes";
 import { Router } from "express";
 
-import { userRouter } from "./user/user.routes";
+import { userRouter } from "./user.routes";
 
 export const router = Router();
 
@@ -70,3 +71,4 @@ export const router = Router();
  */
 
 router.use("/user", userRouter);
+router.use(authenticateRoutes);
