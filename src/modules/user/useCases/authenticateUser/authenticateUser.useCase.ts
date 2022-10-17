@@ -22,7 +22,7 @@ export class AuthenticateUserUserUseCase {
   constructor(@inject("UsersRepository") private _repository: IUsersRepository) {}
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this._repository.findByEmail(email);
-
+    console.log(email, password);
     if (!user) throw new HttpError("Email or password incorrect!", 400);
 
     const passwordMatch = await compare(password, user.password);
