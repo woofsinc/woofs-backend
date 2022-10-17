@@ -33,6 +33,7 @@ export class UsersRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User> {
     const user = await this._prisma.user.findUnique({ where: { email } });
+    console.log(user);
     return user;
   }
 
