@@ -4,8 +4,8 @@
   "description": "Um tinder para Doguinhos! Desenvolvido para a matéria Project Labs II",
   "main": "index.js",
   "scripts": {
-    "build": "npx ts-node src/utils/swagger.ts && tsc",
-    "start": "node dist/server.js",
+    "build": "npx ts-node src/utils/swagger.ts && babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "start": "npm run build && node dist/shared/infra/http/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "lint": "eslint src --max-warnings=0",
     "swagger": "npx ts-node src/utils/swagger.ts"
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.3.0",
+    "@prisma/client": "^4.5.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "class-validator": "^0.13.2",
@@ -38,6 +38,13 @@
     "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.19.3",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-typescript": "^7.18.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
@@ -49,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
