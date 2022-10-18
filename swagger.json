@@ -10,39 +10,71 @@
     }
   },
   "paths": {
-    "/user": {
-      "get": {
-        "summary": "Get a list of users.",
-        "description": "Get a paginated list of users.",
+    "/sessions/login": {
+      "post": {
+        "summary": "Start a new session.",
+        "description": "Start a new session.",
         "tags": [
-          "User"
+          "Session"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionsInput"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Pagination"
-                    },
-                    {
-                      "type": "object"
-                    }
-                  ],
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/User"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/Session"
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "summary": "Register a new User.",
+        "description": "Register a new User.",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -86,63 +118,177 @@
             "$ref": "#/components/responses/500"
           }
         }
-      }
-    }
-  },
-  "components": {
-    "responses": {
-      "400": {
-        "description": "Bad Request",
-        "content": {
-          "application/json": {
+      },
+      "delete": {
+        "summary": "Delete an user.",
+        "description": "Delete an user by it's id.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
             "schema": {
-              "$ref": "#/components/schemas/Error"
+              "type": "string"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
-      "404": {
-        "description": "Not Found Error",
-        "content": {
-          "application/json": {
+      "put": {
+        "summary": "Update an user.",
+        "description": "Update an user by it's id.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
             "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Not Found Error"
-                }
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInput"
               }
             }
           }
-        }
-      },
-      "500": {
-        "description": "Internal Server Error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 500
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Internal Server Error"
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
     },
+    "/user": {
+      "get": {
+        "summary": "Get a list of users.",
+        "description": "Get a paginated list of users.",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "_page",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pagination"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ],
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
     "schemas": {
+      "SessionsInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SessionsInput"
+          },
+          {
+            "type": "object"
+          }
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
       "Pagination": {
         "type": "object",
         "properties": {
@@ -215,13 +361,9 @@
             "type": "integer",
             "example": 50
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
+          "isAdmin": {
+            "type": "bool",
+            "example": false
           }
         }
       },
@@ -239,6 +381,66 @@
           "id": {
             "type": "string",
             "format": "uuid"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not Found Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                }
+              }
+            }
           }
         }
       }

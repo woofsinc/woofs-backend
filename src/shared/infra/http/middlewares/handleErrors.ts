@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, Response } from "express";
 
-import { HttpError } from "../errors/http.error";
-import { logger } from "../utils/logger";
+import { HttpError } from "@shared/errors/http.error";
+import { logger } from "@utils/logger";
 
 export function handleErrors(
   error: Error,
