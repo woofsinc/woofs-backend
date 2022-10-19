@@ -1,0 +1,27 @@
+name: woofs-CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - src/**
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+    uses: actions/checkout@v2
+
+    - name: Docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+    
+    - name: Build image
+      run: docker build . --file Dockerfile -t ${{secrets.DOCKER_REPO}}/woofs-backend:latest
+
+    - name: Push image
+      run: docker push ${{secrets.DOCKER_USER}}/woofs-backend
