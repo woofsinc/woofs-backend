@@ -9,6 +9,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id            String   @id @default(uuid())
   name          String
@@ -19,7 +20,7 @@ model User {
   latitude      Float
   longitude     Float
   distanceLimit Int
-  isAdmin       Boolean  @default(false)
+  isAdmin       Boolean  @default(true)
   pets          Pet[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
