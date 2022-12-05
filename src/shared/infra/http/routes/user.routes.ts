@@ -93,8 +93,6 @@ const deleteUserController = new DeleteUserController();
  *        $ref: '#/components/responses/500'
  */
 userRouter.post("/create", createUserController.handle);
-userRouter.use(ensureAuthenticated);
-userRouter.use(ensureAdmin);
 /**
  * @openapi
  * /user/{id}:
@@ -123,7 +121,8 @@ userRouter.use(ensureAdmin);
  *        $ref: '#/components/responses/500'
  */
 userRouter.get("/:id", listUserController.handle);
-
+userRouter.use(ensureAuthenticated);
+userRouter.use(ensureAdmin);
 /**
  * @openapi
  * /user:
